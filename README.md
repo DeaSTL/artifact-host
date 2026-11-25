@@ -2,6 +2,25 @@
 
 A single-binary Go daemon and CLI for hosting versioned interactive HTML artifacts (decision sheets, reports, prototypes, visualizers) with static assets, cached headless-Chrome page previews, and a server-side rendered UI.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/gallery-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/screenshots/gallery-light.png">
+  <img alt="Artifact Host gallery with cached page previews" src="docs/screenshots/gallery-dark.png">
+</picture>
+
+## Screenshots
+
+| Artifact Viewer & Version Switcher | Version History, Files & Submissions Drawer |
+| --- | --- |
+| ![Artifact viewer with version navigation](docs/screenshots/viewer-dark.png) | ![Version history drawer with restore and submissions](docs/screenshots/viewer-history-dark.png) |
+
+<details>
+<summary>Light mode gallery</summary>
+
+![Artifact Host gallery in light mode](docs/screenshots/gallery-light.png)
+
+</details>
+
 ## Features
 
 - **Single static binary**: Pure-Go SQLite (`modernc.org/sqlite`, zero CGo) with all CSS, JS, and systemd templates embedded via `//go:embed`.
