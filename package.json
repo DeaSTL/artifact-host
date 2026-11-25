@@ -1,0 +1,11 @@
+{
+  "name": "artifact-host-ui",
+  "private": true,
+  "scripts": {
+    "css": "tailwindcss -i ./internal/ui/styles/input.css -o ./internal/ui/static/app.css --minify"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.0",
+    "tailwindcss": "^4.1.0"
+  }
+}

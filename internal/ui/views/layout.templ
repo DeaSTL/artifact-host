@@ -1,0 +1,60 @@
+package views
+
+import (
+	"github.com/deastl/artifact-host/internal/ui/components"
+	"github.com/deastl/artifact-host/internal/ui/components/button"
+	"github.com/deastl/artifact-host/internal/ui/components/icon"
+)
+
+templ Layout(title string, bodyClass string) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="utf-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1"/>
+			<meta name="color-scheme" content="light dark"/>
+			<title>{ title }</title>
+			<script>
+				(function () {
+					try {
+						var pref = localStorage.getItem("artifact-host-theme") || "system";
+						if (pref !== "light" && pref !== "dark" && pref !== "system") pref = "system";
+						var isDark = pref === "dark" || (pref === "system" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+						var root = document.documentElement;
+						root.setAttribute("data-theme-pref", pref);
+						root.classList.toggle("dark", isDark);
+						root.classList.toggle("light", !isDark);
+					} catch (_) {}
+				})();
+			</script>
+			<link rel="stylesheet" href="/static/app.css"/>
+			@components.Scripts()
+			<script defer src="/static/ui.js"></script>
+		</head>
+		<body class={ bodyClass }>
+			{ children... }
+		</body>
+	</html>
+}
+
+templ themeToggleButton() {
+	@button.Button(button.Props{
+		Variant: button.VariantGhost,
+		Size:    button.SizeIconSm,
+		Attributes: templ.Attributes{
+			"data-theme-toggle": "true",
+			"title":             "Theme: System (click to switch)",
+			"aria-label":        "Switch color theme",
+		},
+	}) {
+		<span data-theme-icon="system" class="inline-flex items-center justify-center">
+			@icon.Monitor(icon.Props{Class: "size-4"})
+		</span>
+		<span data-theme-icon="light" class="inline-flex items-center justify-center">
+			@icon.Sun(icon.Props{Class: "size-4"})
+		</span>
+		<span data-theme-icon="dark" class="inline-flex items-center justify-center">
+			@icon.Moon(icon.Props{Class: "size-4"})
+		</span>
+	}
+}

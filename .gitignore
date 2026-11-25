@@ -1,0 +1,24 @@
+# Binaries & build outputs
+/artifact
+/artifact-host
+/bin/
+/dist/
+*.exe
+*.test
+*.out
+coverage.out
+
+# Node / Tailwind build tooling (only compiled CSS in internal/ui/static/app.css is embedded)
+node_modules/
+
+# Local runtime data & databases
+.data/
+*.db
+*.db-shm
+*.db-wal
+
+# OS / editor artifacts
+.DS_Store
+.idea/
+.vscode/
+*.swp

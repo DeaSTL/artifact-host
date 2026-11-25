@@ -1,0 +1,59 @@
+package views
+
+import (
+	"github.com/deastl/artifact-host/internal/ui/components/badge"
+	"github.com/deastl/artifact-host/internal/ui/components/button"
+	"github.com/deastl/artifact-host/internal/ui/components/card"
+	"github.com/deastl/artifact-host/internal/ui/components/icon"
+)
+
+templ ErrorPage(raw ErrorData) {
+	{{ data := errorDefaults(raw) }}
+	@Layout(data.Title+" - Artifact Host", "flex min-h-screen flex-col bg-background text-foreground antialiased") {
+		<header class="border-b bg-background">
+			<div class="mx-auto flex h-14 max-w-7xl items-center px-4 sm:px-6">
+				<a href="/" class="flex items-center gap-2.5 text-sm font-semibold tracking-tight text-foreground">
+					<span class="flex size-7 items-center justify-center rounded-lg border bg-muted/60 text-foreground">
+						@icon.Layers(icon.Props{Class: "size-4"})
+					</span>
+					<span>Artifact Host</span>
+				</a>
+			</div>
+		</header>
+		<main class="flex flex-1 items-center justify-center px-4 py-12">
+			@card.Card(card.Props{Class: "w-full max-w-md"}) {
+				@card.Header(card.HeaderProps{Class: "items-center text-center"}) {
+					<span class="mb-2 flex size-11 items-center justify-center rounded-xl border bg-destructive/10 text-destructive">
+						@icon.CircleAlert(icon.Props{Class: "size-5"})
+					</span>
+					@badge.Badge(badge.Props{Variant: badge.VariantOutline, Class: "mb-1 font-mono text-xs"}) {
+						HTTP { itoa(data.StatusCode) }
+					}
+					@card.Title(card.TitleProps{Class: "text-lg font-semibold"}) {
+						{ data.Title }
+					}
+					@card.Description(card.DescriptionProps{Class: "mt-1 text-sm"}) {
+						{ data.Message }
+					}
+				}
+				if data.Detail != "" {
+					@card.Content(card.ContentProps{Class: "pt-0"}) {
+						<div class="rounded-lg border bg-muted/40 px-3 py-2 font-mono text-xs text-muted-foreground">
+							{ data.Detail }
+						</div>
+					}
+				}
+				@card.Footer(card.FooterProps{Class: "justify-center"}) {
+					@button.Button(button.Props{
+						Href:    data.BackURL,
+						Variant: button.VariantDefault,
+						Size:    button.SizeDefault,
+					}) {
+						@icon.ArrowLeft(icon.Props{Class: "size-4"})
+						<span>{ data.BackLabel }</span>
+					}
+				}
+			}
+		</main>
+	}
+}

@@ -1,0 +1,14 @@
+[Unit]
+Description=Artifact Host local web artifact daemon
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart={{.ExecStart}}
+Restart=on-failure
+RestartSec=2
+Environment=HOME=%h
+
+[Install]
+WantedBy=default.target
